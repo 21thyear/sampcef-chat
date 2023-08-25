@@ -1,0 +1,29 @@
+body {
+    font-family: 'Lato', sans-serif; /* Используем шрифт Lato для текста */
+}
+
+.message {
+    margin-bottom: 0.5px; /* Маленький отступ между сообщениями */
+    padding: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: baseline;
+}
+
+.message p {
+    margin: 0;
+    padding: 5px;
+    border: none;
+    margin-left: 35px;
+}
+
+.message strong.name {
+    color: darkblue;
+    font-family: 'Poppins', sans-serif; /* Используем шрифт Poppins для имени */
+}
+
+.message .text {
+    color: white;
+    margin-left: 10px;
+	font-family: 'Lato', sans-serif;
+}
