@@ -1,13 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>interface</title>
-	
-	<link rel="stylesheet" href="style.css">
-	
+  <title>„ат</title>
+  <style>
+    .message {
+      transition: opacity 0.5s ease-out;
+    }
+  </style>
 </head>
 <body>
-    <div id="messagesContainer"></div> <!-- Контейнер для сообщений -->
-    <script src="chat.js"></script>
+  <div id="messagesContainer"></div>
+  
+  <script>
+		window.addEventListener("keydown", (event) => {
+			print(event);
+		});
+  </script>
+  
+  <script src="chatHandler.js"></script>
 </body>
 </html>

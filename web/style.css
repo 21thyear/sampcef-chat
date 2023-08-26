@@ -17,13 +17,6 @@ body {
     margin-left: 35px;
 }
 
-.message strong.name {
-    color: darkblue;
-    font-family: 'Poppins', sans-serif; /* Используем шрифт Poppins для имени */
-}
-
-.message .text {
-    color: white;
-    margin-left: 10px;
-	font-family: 'Lato', sans-serif;
-}
+.message-container {
+    transition: opacity 0.5s ease-out; /* Добавляем переход для свойства opacity */
+  }
