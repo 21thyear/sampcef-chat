@@ -9,43 +9,67 @@
 #include <sscanf2>
 #include <streamer>
 #include <Pawn.CMD>
-#define ID_BROWSER_DIALOGS  5
 
 main(){}
 
-public OnGameModeInit(){
-	cef_subscribe("OnHudInitialization", "OnHudInitialization");
-}
+forward OnCefBrowserCreated(player_id, browser_id, status_code);
 
-public OnPlayerSpawn(playerid){
-	for(new i; i < 100; i++)
-	    SendClientMessage(playerid, -1, " ");
-	cef_create_browser(playerid, ID_BROWSER_DIALOGS, "file:///C:/OSPanel/domains/localhost/index.html", false, false);
-
+public OnGameModeInit()
+{
+	SetGameModeText("CEF");
+	AddPlayerClass(0, 1958.3783, 1343.1572, 15.3746, 269.1425, 0, 0, 0, 0, 0, 0);
+	return 1;
 }
-forward OnHudInitialization(playerid);
-public OnHudInitialization(playerid){
-	return true;
+public OnPlayerRequestClass(playerid, classid)
+{
+	SetPlayerPos(playerid, 1958.3783, 1343.1572, 15.3746);
+	SetPlayerCameraPos(playerid, 1958.3783, 1343.1572, 15.3746);
+	SetPlayerCameraLookAt(playerid, 1958.3783, 1343.1572, 15.3746);
+	return 1;
+}
+public OnPlayerSpawn(playerid)
+{
+	cef_create_browser(playerid, 0x12345, "file:///C:/OSPanel/domains/localhost/index.html", false, false);
+	return 1;
 }
 
 public OnPlayerText(playerid, text[])
 {
-	new
-	    player_name[MAX_PLAYERS];
+	new player_name[MAX_PLAYERS];
 	GetPlayerName(playerid, player_name[playerid], MAX_PLAYER_NAME);
-	printf("%s", player_name[playerid]);
-
-    cef_emit_event(playerid, "pwd:chat", CEFSTR(player_name[playerid]), CEFSTR(text));
-	return false;
-}
-
-
-stock hudUpdate(playerid, const nick[], const text[])
-{
-    cef_emit_event(
+	
+	SetPlayerColor(playerid, 0xFF0000FF);
+	new fmtPlayerColor[] = "%06x";
+	new PlayerColor[sizeof fmtPlayerColor + (-4) + 14];
+	new string[MAX_PLAYER_NAME + (-2) + 16];
+	format(string, sizeof string, "%s[%i]", player_name[playerid], playerid);
+	format(PlayerColor, sizeof PlayerColor, fmtPlayerColor, GetPlayerColor(playerid) >>> 8);
+	cef_emit_event(
 		playerid,
 		"pwd:chat",
-		CEFSTR(nick),
+		CEFSTR(PlayerColor),
+		CEFSTR(string),
 		CEFSTR(text)
 	);
 }
+
+public OnCefBrowserCreated(player_id, browser_id, status_code)
+{
+	print("янгдюм!!");
+}
+cmd:set_money(player_id, money_event[])
+{
+	printf("%i", cef_player_has_plugin(player_id));
+	new money;
+	if(sscanf(money_event, "i", money)) return SendClientMessage(player_id, -1, "set_money [value]");
+	GivePlayerMoney(player_id, money);
+	return 1;
+}
+cmd:set_hp(player_id, hp_event[])
+{
+	new hp;
+	if(sscanf(hp_event, "i", hp)) return SendClientMessage(player_id, -1, "set_hp [value]");
+	SetPlayerHealth(player_id, hp);
+	return 1;
+}
+
