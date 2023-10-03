@@ -51,25 +51,4 @@ public OnPlayerText(playerid, text[])
 		CEFSTR(string),
 		CEFSTR(text)
 	);
-}
-
-public OnCefBrowserCreated(player_id, browser_id, status_code)
-{
-	print("янгдюм!!");
-}
-cmd:set_money(player_id, money_event[])
-{
-	printf("%i", cef_player_has_plugin(player_id));
-	new money;
-	if(sscanf(money_event, "i", money)) return SendClientMessage(player_id, -1, "set_money [value]");
-	GivePlayerMoney(player_id, money);
-	return 1;
-}
-cmd:set_hp(player_id, hp_event[])
-{
-	new hp;
-	if(sscanf(hp_event, "i", hp)) return SendClientMessage(player_id, -1, "set_hp [value]");
-	SetPlayerHealth(player_id, hp);
-	return 1;
-}
-
+}
